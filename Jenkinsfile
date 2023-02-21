@@ -7,6 +7,6 @@ pipeline {
               sh "mvn clean package -DskipTests=true"
               archive 'target/*.jar' 
             }
-        }   
+          }   
     }
-}
+}    
