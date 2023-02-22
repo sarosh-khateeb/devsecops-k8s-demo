@@ -15,13 +15,11 @@ pipeline {
           }
       stage('Dockerize image') {
             steps {
-              withDockerRegistry([credentialsId: "dockerhub", url: ""]){}
+              withDockerRegistry([credentialsId: "dockerhub", url: ""]){
               sh 'printenv'
-              sh 'docker login'
               sh 'docker build -t saroshkhateeb/numeric-app:""$GIT_COMMIT"" .'
               sh 'docker push saroshkhateeb/numeric-app:""$GIT_COMMIT""'
             }
           }    
-                 
     } 
 }   
