@@ -15,7 +15,7 @@ pipeline {
           }
       stage('Dockerize image') {
             steps {
-              withDockerRegistry([credentialsId: "docker-hub", url: ""]){}
+              withDockerRegistry([credentialsId: "docker-hub", url: "https://index.docker.io/v1/"]){}
               sh 'printenv'
               sh 'docker build -t saroshkhateeb/numeric-app:""$GIT_COMMIT"" .'
               sh 'docker push saroshkhateeb/numeric-app:""$GIT_COMMIT""'
