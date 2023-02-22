@@ -13,7 +13,7 @@ pipeline {
               sh "mvn test"
             }
           }
-      stage('Dockerize image') {
+      stage('Docker build and push') {
             steps {
               withDockerRegistry([credentialsId: "docker-hub", url: "https://index.docker.io/v1/"]){
               sh 'printenv'
