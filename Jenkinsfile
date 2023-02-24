@@ -8,11 +8,29 @@ pipeline {
               archive 'target/*.jar' 
             }
           }
-      stage('Unit Test Artifact') {
+
+      stage('Unit Test - Junit and jacoco') {
             steps {
               sh "mvn test"
             }
+            post {
+              always {
+                junit 'target/surefire-reports/*.xml'
+                jacoco execPattern: 'target/jacoco.exec'
+              }
+            }
           }
+      stage('Mutation Tests - PIT') {
+            steps {
+              sh "mvn org.pitest:pitest-maven:mutationCoverage"
+            }
+            post {
+              always {
+                pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+              }
+            }
+          }
+    
       stage('Docker build and push') {
             steps {
               withDockerRegistry([credentialsId: "docker-hub", url: "https://index.docker.io/v1/"]){
