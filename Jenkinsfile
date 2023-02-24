@@ -34,7 +34,17 @@ pipeline {
             steps {
               sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_39fc81638595107f4ebde91edcf65b8541dd594e"
             }
-        }     
+          }
+      stage('Vulnerability Scan - b4 Docker') {
+            steps {
+              sh "mvn dependency-check:check"
+            }
+            post {
+              always {
+                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+              }
+            }
+          }          
       stage('Docker build and push') {
             steps {
               withDockerRegistry([credentialsId: "docker-hub", url: "https://index.docker.io/v1/"]){
