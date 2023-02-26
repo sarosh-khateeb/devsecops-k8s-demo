@@ -13,21 +13,10 @@ pipeline {
             steps {
               sh "mvn test"
             }
-            post {
-              always {
-                junit 'target/surefire-reports/*.xml'
-                jacoco execPattern: 'target/jacoco.exec'
-              }
-            }
           }
       stage('Mutation Tests - PIT') {
             steps {
               sh "mvn org.pitest:pitest-maven:mutationCoverage"
-            }
-            post {
-              always {
-                pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
-              }
             }
           }
       stage('SAST Sonarqube'){
@@ -35,14 +24,9 @@ pipeline {
               sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_39fc81638595107f4ebde91edcf65b8541dd594e"
             }
           }
-      stage('Vulnerability Scan - b4 Docker') {
+      stage('Vulnerability Scan on Dependencies- b4 Docker') {
             steps {
               sh "mvn dependency-check:check"
-            }
-            post {
-              always {
-                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
-              }
             }
           }          
       stage('Docker build and push') {
@@ -62,5 +46,19 @@ pipeline {
                 }
               }    
           }        
+    }
+    post {
+              always {
+                junit 'target/surefire-reports/*.xml'
+                jacoco execPattern: 'target/jacoco.exec'
+                pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+              }
+              //successs{
+
+              //}
+              //failure{
+
+              //}
     } 
 }
