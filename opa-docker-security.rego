@@ -1,36 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@sarosh-khateeb 
-gbrindisi
-/
-dockerfile-security
-Public
-Fork your own copy of gbrindisi/dockerfile-security
-Code
-Issues
-1
-Pull requests
-1
-Actions
-Projects
-Security
-Insights
-Beta Try the new code view
-dockerfile-security/dockerfile-security.rego
-@gbrindisi
-gbrindisi Merge branch 'main' into main
-Latest commit 03a0e42 on Jun 22, 2022
- History
- 2 contributors
-@tspearconquest@gbrindisi
-107 lines (94 sloc)  2.48 KB
-
 package main
 
 # Do Not store secrets in ENV variables
@@ -138,18 +105,3 @@ deny[msg] {
     multi_stage == false
     msg = sprintf("You COPY, but do not appear to use multi-stage builds...", [])
 }
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-dockerfile-security/dockerfile-security.rego at main · gbrindisi/dockerfile-security
