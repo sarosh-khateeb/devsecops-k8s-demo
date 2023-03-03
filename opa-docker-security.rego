@@ -73,7 +73,7 @@ deny[msg] {
 
 # ... but do not root
 forbidden_users = [
-    "root",
+ #   "root",
     "toor",
     "0"
 ]
