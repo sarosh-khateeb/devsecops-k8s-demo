@@ -22,7 +22,7 @@ deny[msg] {
 }
 
 # Only use trusted base images
-#deny[msg] {
+# deny[msg] {
 #    input[i].Cmd == "from"
 #    val := split(input[i].Value[0], "/")
 #    count(val) > 1
@@ -78,13 +78,13 @@ forbidden_users = [
     "0"
 ]
 
-#deny[msg] {
+# deny[msg] {
 #    command := "user"
 #    users := [name | input[i].Cmd == "user"; name := input[i].Value]
 #    lastuser := users[count(users)-1]
 #    contains(lower(lastuser[_]), forbidden_users[_])
 #    msg = sprintf("Line %d: Last USER directive (USER %s) is forbidden", [i, lastuser])
-#}
+# }
 
 # Do not sudo
 deny[msg] {
@@ -101,7 +101,7 @@ multi_stage = true {
     val := concat(" ", input[i].Flags)
     contains(lower(val), "--from=")
 }
-#deny[msg] {
+# deny[msg] {
 #    multi_stage == false
 #    msg = sprintf("You COPY, but do not appear to use multi-stage builds...", [])
-#}
+# }
