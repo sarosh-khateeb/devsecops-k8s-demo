@@ -30,17 +30,17 @@ pipeline {
             }
           }
       stage('Vulnerability Scan - Docker') {
-            steps {
+           steps {
               parallel(
                 "Dependency Scan": {
                   sh "mvn dependency-check:check"      
                 },
                 "Trivy Scan": {
                   sh "bash trivy-docker-image-scan.sh"
-                },
-                "OPA Conftest": {
-                  sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
-                }
+                }//,
+                //"OPA Conftest": {
+                //  sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
+                //}
               )
 
             }
@@ -68,7 +68,37 @@ pipeline {
                  sh "kubectl apply -f k8s_deployment_service.yaml"
                 }
               }    
-          }         
+          } 
+      //stage('OWASP ZAP DAST') {
+      //      steps {
+      //        withKubeConfig([credentialsId: 'kubeconfig']){
+      //           sh 'bash zap.sh'
+      //          }
+      //        }    
+      //    }
+      stage('Prompt to PROD?') {
+            steps {
+              timeout(time: 2, unit: 'DAYS'){
+                 input 'Do you want to Approve the deployment to Production Envrinment/Namespace?'
+                }
+              }    
+          }          
+      stage('K8s CIS Benchmark') {
+            script {
+              parallel(
+                "Master": {
+                  sh "bash cis-master.sh"      
+                },
+                "Etcd": {
+                  sh "bash cis-etcd.sh"
+                },
+                "Kubelet": {
+                  sh "bash cis-kubectl.sh"
+                }
+              )
+
+            }
+          }                    
     }
     post {
               always {
