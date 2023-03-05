@@ -4,7 +4,7 @@ fileignoreconfig:
 - filename: sec_files/file2
   checksum: bf29078e1db29e4bf56b72eb40b8b8e6e2c4a77c0725dfcbfeab690e0d1cbd1f
 - filename: Jenkinsfile
-  checksum: 4d77ae1e4ec13dbe4d595f0d02578fa65c37886d14095d670cfedbb0a0995b6d
+  checksum: 3043e0a8d9c6fa62d2f00f8b1325cce04dad20f97e3986bf50aa771e57dcec42
 - filename: cis-master.sh
   checksum: c5ac86a4d97424dae7645ff35e9d4d28b43ad3106d2c36e7ba9d0c838b9abb10
 - filename: cis-kubelet.sh
