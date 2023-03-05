@@ -84,7 +84,7 @@ pipeline {
               }    
           }          
       stage('K8s CIS Benchmark') {
-            script {
+            steps {
               parallel(
                 "Master": {
                   sh "bash cis-master.sh"      
