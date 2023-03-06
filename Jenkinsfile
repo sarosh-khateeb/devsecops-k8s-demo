@@ -93,7 +93,7 @@ pipeline {
                   sh "bash cis-etcd.sh"
                 },
                 "Kubelet": {
-                  sh "bash cis-kubectl.sh"
+                  sh "bash cis-kubelet.sh"
                 }
               )
 
