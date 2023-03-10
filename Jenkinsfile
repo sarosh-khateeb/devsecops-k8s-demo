@@ -111,8 +111,8 @@ pipeline {
                 "Rollout status": {
                   withKubeConfig([credentialsId: 'kubeconfig']){
                     sh "bash k8s-PROD-deployment-rollout-status.sh"  
-                  }
-              )
+                    }
+                }
             }
           }                          
     }
@@ -123,11 +123,6 @@ pipeline {
                 pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
                 dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
               }
-              //successs{
 
-              //}
-              //failure{
-
-              //}
     } 
 }
