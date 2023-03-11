@@ -1,6 +1,8 @@
 pipeline {
   agent any
-
+  environment{
+    imageName= "saroshkhateeb/numeric-app:${GIT_COMMIT}"
+  }
   stages {
       stage('Build Artifact') {
             steps {
