@@ -109,12 +109,12 @@ pipeline {
                      sh "sed -i 's#replace#${imageName}#g' k8s_PROD_deployment_service.yaml" 
                      sh "kubectl -n prod apply -f k8s_PROD_deployment_service.yaml"
                   }
-                },
-                "Rollout status": {
-                  withKubeConfig([credentialsId: 'kubeconfig']){
-                    sh "bash k8s_PROD_deployment_rollout_status.sh"  
-                    }
-                }
+                }//,
+                //"Rollout status": {
+                //  withKubeConfig([credentialsId: 'kubeconfig']){
+                //    sh "bash k8s_PROD_deployment_rollout_status.sh"  
+                //    }
+                //}
               )  
             }
           }                          
